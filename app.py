@@ -15,20 +15,19 @@ responses = []
 def show_start_page():
     """Show the begin page for a survey."""
 
-    #list method clear()
-    global responses
-    # clears previous responses
-    responses = []
+ 
 
     return render_template("survey_start.html", survey=survey)
 
 
-@app.post("/begin") #move 19,21 here; ensure survey starts from server
+@app.post("/begin")
 def redirect_to_first_question():
     """When a survey is started, redirect the user to the first question"""
-#add docstring here
-    question_number = len(responses)
-    return redirect(f"/questions/{question_number}") #/question/0
+
+    # makes sure our responses are empty before we start the survey
+    responses.clear()
+    
+    return redirect(f"/questions/0")
 
 
 @app.get("/questions/<int:question_number>")
